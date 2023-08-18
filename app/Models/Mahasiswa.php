@@ -18,6 +18,15 @@ class Mahasiswa extends Model
         'password' => 'hashed',
     ];
 
+    public function scopeSearch($query, $search)
+    {
+        if ($search) {
+            $query->where('nama_lengkap', 'like', '%' . $search . '%')
+                ->orWhere('username', 'like', '%' . $search . '%')
+                ->orWhereHas("kelas", fn ($query) => $query->where('nama', 'like', '%' . $search . '%'));
+        }
+    }
+
     public function pengaduan()
     {
         return $this->hasMany(Pengaduan::class, "id_mahasiswa", "id");

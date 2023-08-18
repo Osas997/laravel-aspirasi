@@ -10,8 +10,14 @@ class AdminMahasiswaController extends Controller
     public function index()
     {
         return view("dashboard.petugas.mahasiswa", [
-            "title" => "Mahasiswa",
-            "mahasiswa" => Mahasiswa::paginate(5)
+            "title" => "List Mahasiswa",
+            "mahasiswa" => Mahasiswa::search(request("search"))->paginate(5)
         ]);
+    }
+
+    public function destroy(Mahasiswa $mahasiswa)
+    {
+        $mahasiswa->delete();
+        return redirect("/dashboard/mahasiswa")->with('hapus', "Mahasiswa berhasil di hapus");
     }
 }

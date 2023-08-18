@@ -50,4 +50,5 @@ Route::middleware("auth:petugas")->group(function () {
     Route::post("/dashboard/tanggapan/{pengaduan}", [TanggapanController::class, "store"]);
 
     Route::get("/dashboard/mahasiswa", [AdminMahasiswaController::class, "index"])->middleware("only_admin");
+    Route::delete("/dashboard/mahasiswa/{mahasiswa}", [AdminMahasiswaController::class, "destroy"])->middleware("only_admin");
 });
