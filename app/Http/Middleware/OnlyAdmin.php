@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class Mahasiswa
+class OnlyAdmin
 {
     /**
      * Handle an incoming request.
@@ -15,15 +15,9 @@ class Mahasiswa
      */
     public function handle(Request $request, Closure $next): Response
     {
-
-        if (auth("mahasiswa")->check()) {
-            return $next($request);
+        if (auth()->user()->level !== "admin") {
+            return redirect("/dashboard");
         }
-
-        if (auth("petugas")->check()) {
-            return abort(403, "Ada Yang Salah");
-        }
-
-        return redirect("/login");
+        return $next($request);
     }
 }

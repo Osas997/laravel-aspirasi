@@ -12,6 +12,7 @@ class Mahasiswa extends Model
     use HasFactory;
     protected $table = "mahasiswa";
     protected $guarded = ["id"];
+    protected $with = ["kelas"];
 
     protected $casts = [
         'password' => 'hashed',
