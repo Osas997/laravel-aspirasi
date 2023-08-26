@@ -10,9 +10,19 @@ class Petugas extends Model
 {
     use HasFactory;
     protected $table = "petugas";
+    protected $guarded = ["id"];
+
     protected $casts = [
         'password' => 'hashed',
     ];
+
+    public function scopeSearch($query, $search)
+    {
+        if ($search) {
+            $query->where('nama_lengkap', 'like', '%' . $search . '%')
+                ->orWhere('username', 'like', '%' . $search . '%');
+        }
+    }
 
     public function tanggapan()
     {

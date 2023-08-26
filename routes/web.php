@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminMahasiswaController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PengaduanController;
+use App\Http\Controllers\PetugasController;
 use App\Http\Controllers\PetugasPengaduanController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\TanggapanController;
@@ -23,9 +24,6 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-
-
-
 
 Route::middleware("guest:mahasiswa,petugas")->group(function () {
     Route::get('/login', [LoginController::class, "index"])->name("login");
@@ -51,4 +49,7 @@ Route::middleware("auth:petugas")->group(function () {
 
     Route::get("/dashboard/mahasiswa", [AdminMahasiswaController::class, "index"])->middleware("only_admin");
     Route::delete("/dashboard/mahasiswa/{mahasiswa}", [AdminMahasiswaController::class, "destroy"])->middleware("only_admin");
+
+    // Route::get("/dashboard/petugas", [PetugasController::class, "index"])->middleware("only_admin");
+    Route::resource("/dashboard/petugas", PetugasController::class)->except(["edit", "update", "show"])->middleware("only_admin");
 });

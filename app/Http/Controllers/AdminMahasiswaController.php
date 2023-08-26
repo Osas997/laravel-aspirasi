@@ -9,7 +9,7 @@ class AdminMahasiswaController extends Controller
 {
     public function index()
     {
-        return view("dashboard.petugas.mahasiswa", [
+        return view("dashboard.petugas.admin.mahasiswa", [
             "title" => "List Mahasiswa",
             "mahasiswa" => Mahasiswa::search(request("search"))->paginate(5)
         ]);

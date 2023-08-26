@@ -33,15 +33,15 @@
          </div>
       </div>
       <div class="flex justify-center w-1/2 items-center">
-         @isset(auth()->user()->level)
-         @if (auth()->user()->level === "petugas")
-         <p class="font-bold text-4xl">Petugas</p>
-         @else
+         @if (auth("petugas")->check())
+         @if (auth("petugas")->user()->level === "admin")
          <p class="font-bold text-4xl">Admin</p>
+         @else
+         <p class="font-bold text-4xl">Petugas</p>
          @endif
          @else
          <p class="font-bold text-4xl">Mahasiswa</p>
-         @endisset
+         @endif
       </div>
    </div>
 </div>
